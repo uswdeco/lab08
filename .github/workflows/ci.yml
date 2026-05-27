@@ -2,26 +2,27 @@ name: CI
 
 on:
   push:
-   branches: [ master, main ]
+    branches: [ master, main ]
   pull_request:
-   branches: [ master, main ]
- 
-jobs:
- build:
-  runs-on: ubuntu-latest
-  steps:
-   - uses: actions/checkout@v3
- 
-   - name: Install CMake 
-     run: |
-      sudo apt-get update
-      sudo apt-get install -y cmake
- 
-   - name: Configure
-     run: cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=install
+    branches: [ master, main ]
 
-   - name: Build
-     run: cmake --build _build
- 
-   - name: Install
-     run: cmake --build _build --target install
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Configure
+      run: cmake -S . -B _build -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=_install
+    
+    - name: Build
+      run: cmake --build _build
+    
+    - name: Install
+      run: cmake --build _build --target install
+    
+    - name: Test
+      run: cmake --build _build --target test -- ARGS=--verbose
