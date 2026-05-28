@@ -1,5 +1,5 @@
-# lab05
+# lab06
 
-[![CI](https://github.com/uswdeco/lab05/actions/workflows/ci.yml/badge.svg)](https://github.com/uswdeco/lab05/actions/workflows/ci.yml)
+[![CI](https://github.com/uswdeco/lab06/actions/workflows/ci.yml/badge.svg)](https://github.com/uswdeco/lab06/actions/workflows/ci.yml)
 
 

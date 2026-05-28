@@ -1,0 +1,5 @@
+Description: static C++ library for printing
+ This library provides printing functionality for C++ applications.
+ It is designed to be simple and efficient.
+ .
+ The package includes development headers and static library files.
