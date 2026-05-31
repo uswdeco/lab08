@@ -22,9 +22,7 @@ jobs:
       run: |
         mkdir -p logs
         chmod 777 logs
-        echo -e "text1\ntext2\ntext3" > input.txt
-        docker run -i -v "$(pwd)/logs/:/home/logs/" logger < input.txt
-        sleep 2
+        echo -e "text1\ntext2\ntext3" | docker run -i -v "$(pwd)/logs/:/home/logs/" logger
     - name: Inspect Docker Image
       run: |
         docker inspect logger

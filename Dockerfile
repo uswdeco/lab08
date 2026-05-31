@@ -1,18 +1,19 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt install -yy gcc g++ cmake
 
 COPY . print/
 WORKDIR print
 
-RUN sed -i '1s/^/set(BUILD_TESTS OFF CACHE BOOL "" FORCE)\n/' CMakeLists.txt
+RUN cmake -S . -B _build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=OFF
 
-RUN mkdir _build && cd _build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../_install
-RUN cd _build && cmake --build .
-RUN cd _build && cmake --build . --target install
+RUN cmake --build _build
+RUN cmake --build _build --target install
 
 ENV LOG_PATH /home/logs/log.txt
-
+ENV LD_LIBRARY_PATH=/print/_install/lib
 RUN mkdir -p /home/logs 
 
 WORKDIR _install/bin
