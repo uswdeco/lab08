@@ -21,10 +21,9 @@ jobs:
     - name: Run Docker Container and Test
       run: |
         mkdir -p logs
-        touch logs/log.txt
-        chmod 777 logs/log.txt
+        chmod 777 logs
         echo -e "text1\ntext2\ntext3" | docker run -i -v "$(pwd)/logs/:/home/logs/" logger
-        sleep 1
+        sleep 2
     - name: Inspect Docker Image
       run: |
         docker inspect logger
