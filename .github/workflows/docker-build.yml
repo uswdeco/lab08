@@ -1,0 +1,32 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker Image
+      run: |
+        docker build -t logger .
+
+    - name: Run Docker Container and Test
+      run: |
+        mkdir logs
+        echo -e "text1\ntext2\ntext3" | docker run -i -v "$(pwd)/logs/:/home/logs/" logger
+        
+    - name: Inspect Docker Image
+      run: |
+        docker inspect logger
+
+    - name: Check Log Outputs
+      run: |
+        cat logs/log.txt
