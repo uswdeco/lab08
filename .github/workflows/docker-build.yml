@@ -22,7 +22,8 @@ jobs:
       run: |
         mkdir -p logs
         chmod 777 logs
-        echo -e "text1\ntext2\ntext3" | docker run -i -v "$(pwd)/logs/:/home/logs/" logger
+        echo -e "text1\ntext2\ntext3" > input.txt
+        docker run -i -v "$(pwd)/logs/:/home/logs/" logger < input.txt
 
     - name: Check Log Outputs
       run: |
