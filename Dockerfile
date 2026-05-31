@@ -12,8 +12,10 @@ RUN cd _build && cmake --build .
 RUN cd _build && cmake --build . --target install
 
 ENV LOG_PATH /home/logs/log.txt
-# Указываем, где искать библиотеку libprint.so, если она собралась как shared
 ENV LD_LIBRARY_PATH=/print/_install/lib:/print/_build
+
+RUN mkdir -p /home/logs && touch /home/logs/log.txt && chmod -R 777 /home/logs
+
 VOLUME /home/logs
 
 WORKDIR _install/bin
