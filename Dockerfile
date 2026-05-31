@@ -1,4 +1,3 @@
-cat > Dockerfile <<EOF
 FROM ubuntu:18.04
 
 RUN apt update && apt install -yy gcc g++ cmake
@@ -19,4 +18,4 @@ VOLUME /home/logs
 
 WORKDIR _install/bin
 ENTRYPOINT ./demo
-EOF
+
